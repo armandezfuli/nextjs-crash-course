@@ -13,6 +13,7 @@
     "class-variance-authority": "^0.7.1",
     "clsx": "^2.1.1",
     "lucide-react": "^1.17.0",
+    "mongoose": "^9.6.3",
     "next": "16.2.6",
     "ogl": "^1.0.11",
     "posthog-js": "^1.376.4",
