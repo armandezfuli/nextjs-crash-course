@@ -126,7 +126,6 @@ const eventSchema = new Schema<IEvent, EventModel>(
   { timestamps: true }
 );
 
-eventSchema.index({ slug: 1 }, { unique: true });
 
 eventSchema.pre("save", function (next) {
   try {

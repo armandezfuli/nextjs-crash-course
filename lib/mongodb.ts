@@ -1,4 +1,5 @@
 import mongoose, { Mongoose } from 'mongoose';
+import { logger } from '@/lib/logger';
 
 // Define the type for the cached connection
 interface CachedConnection {
@@ -31,7 +32,12 @@ const cached = global.mongooseCache;
 export async function connectToDatabase(): Promise<Mongoose> {
   // Return cached connection if already established
   if (cached.conn) {
-    return cached.conn;
+    if (mongoose.connection.readyState === 1) {
+      return cached.conn;
+    }
+
+    cached.conn = null;
+    cached.promise = null;
   }
 
   // Return pending connection promise if one is in progress
@@ -56,11 +62,11 @@ export async function connectToDatabase(): Promise<Mongoose> {
       minPoolSize: 5,
     })
     .then((mongooseInstance) => {
-      console.log('✅ Connected to MongoDB');
+      logger.info({ message: 'Connected to MongoDB' });
       return mongooseInstance;
     })
     .catch((error) => {
-      console.error('❌ Failed to connect to MongoDB:', error);
+      logger.error({ message: 'Failed to connect to MongoDB', error });
       throw error;
     });
 

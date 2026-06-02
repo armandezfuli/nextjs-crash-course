@@ -38,25 +38,22 @@ const bookingSchema = new Schema<IBooking, BookingModel>(
   { timestamps: true }
 );
 
-bookingSchema.pre("save", async function (next) {
-  try {
-    // Enforce a valid email format before writing.
-    if (!this.email?.trim() || !isValidEmail(this.email)) {
-      throw new Error("A valid email is required.");
-    }
+bookingSchema.path("email").validate({
+  validator: (value: string): boolean =>
+    Boolean(value?.trim()) && isValidEmail(value),
+  message: "A valid email is required.",
+});
 
-    // Ensure bookings always point to an existing event.
-    if (this.isNew || this.isModified("eventId")) {
-      const eventExists = await Event.exists({ _id: this.eventId });
-      if (!eventExists) {
-        throw new Error("Referenced event does not exist.");
-      }
-    }
+bookingSchema.path("eventId").validate({
+  validator: async (value: Types.ObjectId): Promise<boolean> => {
+    const eventExists = await Event.exists({ _id: value });
+    return Boolean(eventExists);
+  },
+  message: "Referenced event does not exist.",
+});
 
-    next();
-  } catch (error) {
-    next(error as Error);
-  }
+bookingSchema.pre(["findOneAndUpdate", "updateOne"], function () {
+  this.setOptions({ runValidators: true });
 });
 
 const Booking =
