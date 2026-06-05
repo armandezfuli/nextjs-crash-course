@@ -46,7 +46,7 @@ export async function connectToDatabase(): Promise<Mongoose> {
   }
 
   // Validate that MongoDB URI is configured
-  const mongodbUri = process.env.MONGODB_URI;
+  const mongodbUri = process.env.MONGODB_URL;
   if (!mongodbUri) {
     throw new Error(
       'MONGODB_URI environment variable is not defined. Please check your .env.local file.'
