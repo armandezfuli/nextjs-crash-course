@@ -1,6 +1,6 @@
 import { HydratedDocument, Model, Schema, model, models } from "mongoose"
 
-interface IEvent {
+export interface IEvent {
     title: string
     slug: string
     description: string
