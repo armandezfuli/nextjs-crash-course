@@ -1,4 +1,7 @@
 import BookEvent from "@/components/BookEvent"
+import EventCard from "@/components/EventCard"
+import { IEvent } from "@/database/event.model"
+import { getSimilarEventsBySlug } from "@/lib/actions/event.actions"
 import Image from "next/image"
 import { notFound } from "next/navigation"
 
@@ -57,6 +60,11 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
     } = event
     if (!description) return notFound()
     const bookings = 10
+    const similarEvents: IEvent[] = await getSimilarEventsBySlug(slug)
+
+    const parsedTags = tags.length === 1 ? JSON.parse(tags[0]) : tags
+    const parsedAgenda = agenda.length === 1 ? JSON.parse(agenda[0]) : agenda
+
     return (
         <section id="event">
             <div className="header">
@@ -105,14 +113,14 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                         />
                     </section>
 
-                    <EventAgenda agendaItems={JSON.parse(agenda[0])} />
+                    <EventAgenda agendaItems={parsedAgenda} />
 
                     <section className="flex-col-gap-2">
                         <h2>About the Organizer</h2>
                         <p>{organizer}</p>
                     </section>
 
-                    <EventTags tags={JSON.parse(tags[0])} />
+                    <EventTags tags={parsedTags} />
                 </div>
 
                 {/*    Right Side - Booking Form */}
@@ -135,10 +143,10 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
             <div className="flex w-full flex-col gap-4 pt-20">
                 <h2>Similar Events</h2>
                 <div className="events">
-                    {/* {similarEvents.length > 0 &&
+                    {similarEvents.length > 0 &&
                         similarEvents.map((similarEvent: IEvent) => (
                             <EventCard key={similarEvent.title} {...similarEvent} />
-                        ))} */}
+                        ))}
                 </div>
             </div>
         </section>
