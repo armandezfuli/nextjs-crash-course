@@ -93,7 +93,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                         <EventDetailItem
                             icon="/icons/calendar.svg"
                             alt="calendar"
-                            label={date}
+                            label={date.split("T")[0]}
                         />
                         <EventDetailItem
                             icon="/icons/clock.svg"

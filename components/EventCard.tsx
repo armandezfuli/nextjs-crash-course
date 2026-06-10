@@ -15,7 +15,7 @@ const EventCard = ({title, image, slug, time, location, date}: Event) => {
             <div className="datetime">
                 <div>
                     <Image src="/icons/calendar.svg" alt="date" width={14} height={14}/>
-                    <p>{date}</p>
+                    <p>{date.split("T")[0]}</p>
                 </div>
                 <div>
                     <Image src="/icons/clock.svg" alt="time" width={14} height={14}/>
