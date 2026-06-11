@@ -16,7 +16,13 @@ const EventDetailItem = ({
     label: string
 }) => (
     <div className="flex-row-gap-2 items-center">
-        <Image src={icon} alt={alt} width={17} height={17} />
+        <Image
+            src={icon}
+            alt={alt}
+            width={17}
+            height={17}
+            style={{ width: "auto", height: "auto" }}
+        />
         <p>{label}</p>
     </div>
 )
@@ -81,6 +87,7 @@ const EventDetailsPage = async ({ params }: { params: Promise<{ slug: string }> 
                         width={800}
                         height={800}
                         className="banner"
+                        style={{ width: "auto", height: "auto" }}
                     />
 
                     <section className="flex-col-gap-2">
