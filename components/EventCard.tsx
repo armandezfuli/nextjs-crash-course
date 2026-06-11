@@ -12,6 +12,7 @@ const EventCard = ({ title, image, slug, time, location, date }: Event) => {
                 height={300}
                 className="poster"
                 style={{ width: "auto", height: "auto" }}
+                priority
             />
             <div className="flex flex-row gap-2">
                 <Image
