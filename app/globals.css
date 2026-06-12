@@ -93,9 +93,9 @@
 @utility flex-center {
     @apply flex items-center justify-center;
 }
-
+/* bg-gradient-to-b */
 @utility text-gradient {
-    @apply to-blue bg-gradient-to-b from-white via-white bg-clip-text font-semibold text-transparent;
+    @apply to-blue bg-linear-to-b from-white via-white bg-clip-text font-semibold text-transparent;
 }
 
 @utility glass {
@@ -126,9 +126,9 @@
     h3 {
         @apply font-schibsted-grotesk text-2xl font-bold;
     }
-
+    /* list-disc  */
     ul {
-        @apply list-disc list-inside list-none;
+        @apply list-none list-inside;
     }
 }
 
@@ -175,7 +175,7 @@
         @apply flex flex-col gap-3;
 
         .poster {
-            @apply h-[300px] w-full rounded-lg object-cover;
+            @apply h-75 w-full rounded-lg object-cover;
         }
 
         .title {
@@ -204,10 +204,10 @@
             @apply flex w-full flex-col lg:flex-row gap-12 items-start mt-12 max-lg:items-center;
 
             .content {
-                @apply flex flex-[2] flex-col gap-8 max-lg:w-full;
+                @apply flex flex-2 flex-col gap-8 max-lg:w-full;
 
                 .banner {
-                    @apply max-h-[457px] w-full rounded-lg object-cover;
+                    @apply max-h-114.25 w-full rounded-lg object-cover;
                 }
 
                 .agenda {
